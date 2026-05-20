@@ -28,7 +28,7 @@ html {
     scroll-behavior: smooth;
 }
 
-/* Regula de siguranță: nicio imagine de pe site nu are voie să iasă din containerul ei */
+/* Regula globală care oprește suprapunerile accidentale */
 img {
     max-width: 100%;
     height: auto;
@@ -110,7 +110,7 @@ img {
     border-radius: var(--border-radius);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     position: relative;
-    overflow: hidden; /* Taie elementele care încearcă să iasă din colțurile rotunjite */
+    overflow: hidden; 
 }
 
 .section h2 {
@@ -156,35 +156,6 @@ img {
     line-height: 1.8;
 }
 
-/* Corecție pentru imagini simple uitate prin secțiuni */
-.section-content img {
-    max-width: 100%;
-    height: auto;
-    margin: 20px auto;
-    border-radius: var(--border-radius);
-}
-
-.cta-button {
-    background-color: var(--secondary-color);
-    color: var(--text-dark);
-    border: none;
-    padding: 15px 40px;
-    font-size: 1em;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    transition: var(--transition);
-    font-weight: bold;
-    margin-top: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.cta-button:hover {
-    background-color: var(--primary-color);
-    color: var(--white);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
 /* ========== ATRACȚII GRID ========== */
 .attractions-grid {
     display: grid;
@@ -205,14 +176,9 @@ img {
 }
 
 .attraction-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    transition: var(--transition);
-}
-
-.attraction-card:hover .attraction-image {
-    transform: scale(1.05);
+    width: 100% !important;
+    height: 200px !important;
+    object-fit: cover !important;
 }
 
 .attraction-card h3 {
@@ -226,7 +192,7 @@ img {
     padding: 0 20px;
     line-height: 1.6;
     margin-bottom: 15px;
-    flex-grow: 1; /* Împinge butonul jos dacă textele au lungimi diferite */
+    flex-grow: 1;
 }
 
 .link-button {
@@ -242,35 +208,32 @@ img {
     text-align: center;
 }
 
-.link-button:hover {
-    background-color: var(--secondary-color);
-    color: var(--text-dark);
-    text-decoration: underline;
-}
-
-/* ========== GALERIE (CORECTATĂ) ========== */
+/* ========== GALERIE FOTO (CORECorectată complet pentru a bloca dimensiunile) ========== */
 .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    margin-top: 30px;
-    align-items: stretch;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+    gap: 20px !important;
+    margin-top: 30px !important;
+    position: relative !important;
 }
 
+/* Forțează absolut TOATE imaginile din galerie să aibă aceeași formă și dimensiune */
+.gallery-grid img, 
 .gallery-image {
-    width: 100%;
-    height: 250px;       /* Aliniaza forțat toate pozele la aceeași înălțime */
-    object-fit: cover;   /* Decupează inteligent pozele portret sau prea mari */
-    display: block;
+    width: 100% !important;
+    height: 250px !important;       /* Taie toate pozele la fix 250px înălțime */
+    object-fit: cover !important;   /* Previne deformarea sau alungirea pozelor */
+    position: static !important;    /* Oprește complet suprapunerile de tip absolute */
+    transform: none !important;     /* Elimină orice bug de poziționare */
     border-radius: var(--border-radius);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: var(--transition);
 }
 
+.gallery-grid img:hover,
 .gallery-image:hover {
-    transform: scale(1.03) rotate(1deg);
+    transform: scale(1.03) !important;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: var(--transition);
 }
 
 /* ========== INFORMAȚII PRACTICE ========== */
@@ -287,27 +250,6 @@ img {
     border-radius: var(--border-radius);
     border-top: 4px solid var(--secondary-color);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    transition: var(--transition);
-}
-
-.info-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-}
-
-.info-card h3 {
-    color: var(--primary-color);
-    margin-bottom: 15px;
-    font-size: 1.3em;
-}
-
-.info-card p {
-    color: var(--text-light);
-    line-height: 1.7;
-}
-
-.info-card strong {
-    color: var(--text-dark);
 }
 
 /* ========== FORMULAR CONTACT ========== */
@@ -327,15 +269,6 @@ img {
     border: 2px solid var(--secondary-color);
     border-radius: var(--border-radius);
     font-size: 1em;
-    font-family: inherit;
-    transition: var(--transition);
-}
-
-.contact-form input:focus,
-.contact-form textarea:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 8px rgba(139, 69, 19, 0.2);
 }
 
 .submit-button {
@@ -346,15 +279,7 @@ img {
     font-size: 1em;
     border-radius: var(--border-radius);
     cursor: pointer;
-    transition: var(--transition);
     font-weight: bold;
-}
-
-.submit-button:hover {
-    background-color: var(--secondary-color);
-    color: var(--text-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* ========== SECȚIUNE CONCLUZIE ========== */
@@ -363,16 +288,6 @@ img {
     color: var(--white);
     text-align: center;
     margin: 40px 0;
-}
-
-.conclusion-section h2 {
-    color: var(--white);
-    border-bottom-color: rgba(255, 255, 255, 0.3);
-}
-
-.conclusion-section p {
-    font-size: 1.2em;
-    line-height: 1.8;
 }
 
 /* ========== FOOTER ========== */
@@ -384,124 +299,13 @@ img {
     margin-top: 60px;
 }
 
-.footer-content p {
-    margin: 10px 0;
-    line-height: 1.6;
-}
-
-.footer-content small {
-    opacity: 0.85;
-    font-size: 0.9em;
-}
-
 /* ========== RESPONSIVE DESIGN ========== */
-
-/* Tablet (768px - 1024px) */
-@media (max-width: 1024px) {
-    .site-title {
-        font-size: 2.2em;
-    }
-
-    .header-tagline {
-        font-size: 1.1em;
-    }
-
-    .section h2 {
-        font-size: 2em;
-    }
-
-    .section {
-        padding: 40px 20px;
-    }
-
-    .attractions-grid,
-    .gallery-grid,
-    .info-grid {
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    }
-}
-
-/* Mobil (max 767px) */
 @media (max-width: 767px) {
-    .site-title {
-        font-size: 1.8em;
+    .nav-menu { flex-direction: column; }
+    .attractions-grid, .gallery-grid, .info-grid {
+        grid-template-columns: 1fr !important;
     }
-
-    .header-tagline {
-        font-size: 1em;
-    }
-
-    .header {
-        padding: 40px 15px;
-    }
-
-    .nav-menu {
-        flex-direction: column;
-    }
-
-    .nav-link {
-        padding: 12px 15px;
-        border-bottom: 2px solid transparent;
-        text-align: center;
-    }
-
-    .section {
-        padding: 30px 15px;
-        margin: 10px 0;
-    }
-
-    .section h2 {
-        font-size: 1.8em;
-        margin-bottom: 20px;
-    }
-
-    .attraction-card {
-        margin-bottom: 20px;
-    }
-
-    .attractions-grid,
-    .gallery-grid,
-    .info-grid {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-
-    .gallery-image {
-        height: 220px; /* O idee mai mare pe mobil pentru a se vedea detaliile */
-    }
-
-    .contact-form {
-        max-width: 100%;
-    }
-
-    .cta-button, .submit-button {
-        width: 100%;
-    }
-
-    .footer-content p {
-        font-size: 0.9em;
-    }
-}
-
-/* Mobil mic (max 480px) */
-@media (max-width: 480px) {
-    .site-title {
-        font-size: 1.5em;
-    }
-
-    .section h2 {
-        font-size: 1.5em;
-    }
-
-    .section-content p {
-        font-size: 1em;
-    }
-
-    .attraction-card h3 {
-        font-size: 1.2em;
-    }
-
-    .info-card h3 {
-        font-size: 1.1em;
+    .gallery-grid img, .gallery-image {
+        height: 220px !important;
     }
 }
